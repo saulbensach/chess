@@ -1,56 +1,51 @@
+import { Chess } from "../vendor/chess";
+
 export const Chessboard = {
     mounted() {
-        console.log("hello!")
         this.board = document.getElementById(this.el.id);
         this.squares = [];
 
-        for(let i = 0; i < 64; i++){
-            let square = document.createElement("div");
-            square.className = "square";
-            square.setAttribute('draggable', false);
-            this.squares.push(square);
-            this.board.appendChild(square);
+        this.chess = new Chess()
+        console.log(this.chess.ascii());
 
-            let isDark = (i + Math.floor(i / 8)) % 2 === 1;
-            square.classList.add(isDark ? "black" : "white");
-        }
-
-        // TODO its to late this can be better probably
-        let piecesBlack = [
-            "br", "bb", "bn", "bq", "bk", "bn", "bb", "br",
-            "bp", "bp", "bp", "bp", "bp", "bp", "bp", "bp"
-        ]
-
-        let piecesWhite = [
-            "wr", "wb", "wn", "wk", "wq", "wn", "wb", "wr",
-            "wp", "wp", "wp", "wp", "wp", "wp", "wp", "wp"
-        ]
-
-        for(let i = 0; i < this.squares.length; i++){
-            let row = Math.floor(i / 8);
-            if(row < 2) {
-                this.squares[i].dataset.index = i;
-                this.squares[i].dataset.piece = piecesBlack[i];
-                this.squares[i].addEventListener("mousedown", this.clickHandler.bind(this));
-                this.squares[i].classList.add(piecesBlack[i]);
-            }
-            if(row >= 6){
-                this.squares[i].dataset.index = i;
-                this.squares[i].dataset.piece = piecesWhite[this.squares.length - i - 1];
-                this.squares[i].addEventListener("mousedown", this.clickHandler.bind(this));
-                this.squares[i].classList.add(piecesWhite[this.squares.length - i - 1]);
+        this.test_board = undefined;
+        this.test_board = this.chess.board();
+        for(let y = 0; y < this.test_board.length; y++){
+            for(let x = 0; x < this.test_board.length; x++){
+                let cell = this.test_board[y][x];
+                let index = x * 8 + y
+                let isDark = (index + Math.floor(index / 8)) % 2 === 1;
+                if (cell == null) {
+                    let square = document.createElement("div");
+                    square.classList.add("square");
+                    square.classList.add(isDark ? "black" : "white");
+                    this.squares.push(square);
+                    this.board.appendChild(square);
+                } else {
+                    let square = document.createElement("div");
+                    let piece = cell.color + cell.type;
+                    square.classList.add(piece);
+                    square.classList.add("square");
+                    square.classList.add(isDark ? "black" : "white");
+                    square.dataset.piece = piece;
+                    square.addEventListener("mousedown", this.clickHandler.bind(this));
+                    this.squares.push(square);
+                    this.board.appendChild(square);
+                }
+                
             }
         }
+        console.log(this.test_board);
+
     },
 
     clickHandler(event){
-        console.log("UWU")
         const square = event.currentTarget;
         const piece = document.createElement("div");
         piece.classList.add(square.dataset.piece);
         piece.classList.add("hover-square")
-        
-         // Set the piece's initial position to the clicked square
+
+        // Set the piece's initial position to the clicked square
         const rect = square.getBoundingClientRect();
         piece.style.left = event.clientX - 50 + window.scrollX + "px";
         piece.style.top = event.clientY - 50 + window.scrollY  + "px";

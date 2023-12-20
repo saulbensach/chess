@@ -24,6 +24,8 @@ import topbar from "../vendor/topbar"
 
 import { Chessboard } from "./chess";
 
+
+
 const Hooks = {
     Chessboard
 }
