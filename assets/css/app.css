@@ -1,0 +1,93 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+/* This file is for your main application CSS */
+
+.board {
+    width: 800px;
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    user-select: none;
+}
+
+.square {
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hover-square {
+    width: 100px;
+    height: 100px;
+    display: flex;
+    position: absolute;
+    justify-content: center;
+}
+
+.black {
+    background-color: #769656;
+}
+
+.white {
+    background-color: #eeeed2;
+}
+
+.bk {
+    background-image: url("/images/bK.png");
+}
+
+.bq {
+    background-image: url("/images/bQ.png");
+}
+
+.bp {
+    background-image: url("/images/bP.png");
+}
+
+.bn {
+    background-image: url("/images/bN.png");
+}
+
+.bb {
+    background-image: url("/images/bB.png");
+}
+
+.br {
+    background-image: url("/images/bR.png");
+}
+
+.wb {
+    background-image: url("/images/wB.png");
+}
+
+.wk {
+    background-image: url("/images/wK.png");
+}
+
+.wn {
+    background-image: url("/images/wN.png");
+}
+
+.wp {
+    background-image: url("/images/wP.png");
+}
+
+.wq {
+    background-image: url("/images/wQ.png");
+}
+
+.wr {
+    background-image: url("/images/wR.png");
+}
+
+
+.bk, .bq, .bp, .bn, .bb, .br, .wk, .wq, .wp, .wn, .wb, .wr {
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+    touch-action: none;
+    will-change: transform;
+}
