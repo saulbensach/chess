@@ -8,7 +8,22 @@ export const Chessboard = {
         this.chess = new Chess()
         console.log(this.chess.ascii());
 
-        this.test_board = undefined;
+        this.test_board = this.chess.board();
+        this.renderMap();
+
+        setInterval(() => {
+            const moves = this.chess.moves()
+            const move = moves[Math.floor(Math.random() * moves.length)]
+            this.chess.move(move);
+            console.log(this.chess.ascii());
+            this.renderMap();
+        }, 1000);
+    },
+
+    // find a way to update the cells instead of rewriting the whole thing
+    renderMap(){
+        this.board.innerHTML = "";
+        this.squares = [];
         this.test_board = this.chess.board();
         for(let y = 0; y < this.test_board.length; y++){
             for(let x = 0; x < this.test_board.length; x++){
@@ -35,8 +50,6 @@ export const Chessboard = {
                 
             }
         }
-        console.log(this.test_board);
-
     },
 
     clickHandler(event){
